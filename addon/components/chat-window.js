@@ -10,7 +10,7 @@ export default Component.extend({
 
   openChat: false,
   windowSize: 'chat-closed',
-  contentChat: true,
+  contentChat: false,
   messages: [],
 
   actions: {
@@ -30,7 +30,14 @@ export default Component.extend({
       else {
         this.get('messages').addObject({userid:this.get('session.user.id'), body: [{id:1,content:message}]});
       }
+    },
+    toRooms: function(){
+
+    },
+    toLast: function(){
+      
     }
+
 
   }
 });

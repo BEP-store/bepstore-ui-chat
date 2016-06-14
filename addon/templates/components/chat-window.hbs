@@ -5,12 +5,19 @@
         Open Chat
       </div>
     {{else}}
-      Cees Herpdiederpston
+      {{#if contentChat}}
+        {{receiver}}
       <div class="clickables">
-        <i class="material-icons">expand_more</i>
-        <i class="material-icons">more_vert</i>
+        <i class="material-icons" {{action 'toRooms'}}>expand_more</i>
         <i class="material-icons" {{action 'toggle'}}>close</i>
       </div>
+      {{else}}
+        All rooms
+        <div class="clickables">
+          <i class="material-icons" {{action 'toLast'}}>expand_less</i>
+          <i class="material-icons" {{action 'toggle'}}>close</i>
+        </div>
+      {{/if}}
     {{/unless}}
   </div>
   {{#if openChat}}
