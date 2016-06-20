@@ -8,27 +8,28 @@ export default Component.extend({
   classNames: 'chat-window',
   classNameBindings: ['isHidden:hidden'],
   session: service(),
+  store: service(),
   account: service(),
   ajax: service(),
 
   openChat: false,
+  contentChat: true,
   windowSize: 'chat-closed',
 
-  isHidden: computed('session.user', function(){
-    if(this.get('session.user.id')){
-      return false;
+  messages: computed('isHidden', 'hasGitter', function(){
+    if(this.get('hasGitter')){
+      return this.get('store').peekAll('chat-message');
     }
-    return true;
+    return null;
   }),
 
-  resetHidden: observer('session.user', function(){
-      if(this.get('session.user.id')){
-        this.set('isHidden', false);
-      }
-      else {
-        this.set('isHidden', true);
-      }
-    }),
+  isHidden: computed('session.user', function(){
+    return !(this.get('session.user.id'));
+  }),
+
+  hasGitter: computed('isHidden', 'account.me.identities.[]', function(){
+    return !this.get('isHidden') && this.get('account').isAuthorized('gitter');
+  }),
 
   actions: {
     toggle: function() {
