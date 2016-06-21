@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import layout from 'bepstore-chat/templates/components/chat-window';
 
-const { Component, computed, observer, inject: { service } } = Ember;
+const { Component, computed, inject: { service } } = Ember;
 
 export default Component.extend({
   layout,
@@ -61,8 +61,14 @@ export default Component.extend({
       }).then((response) => {
         return this.get('store').createRecord('chat-message', response);
       });
+    },
+    toRooms: function(){
+      // set this to choose gitter of all repos
+      this.toggleProperty('contentChat');
+    },
+    toLast: function(){
+      // set this to last used repo
+      this.toggleProperty('contentChat');
     }
-
-
   }
 });
